@@ -1,0 +1,16 @@
+button { @apply font-athiti decoration-amber-50 transition-all ease-out duration-300 outline-none; }
+input[type=text], input[type=number] { @apply w-full bg-indigo-50 border outline-none border-sky-100 focus:ring-indigo-300 focus:bg-slate-200 focus:placeholder-sky-800 font-athiti }
+select { @apply w-full bg-indigo-50 border outline-none border-sky-100 focus:ring-indigo-300 focus:bg-slate-200 focus:placeholder-sky-800 appearance-none pr-8 pl-2 font-athiti py-1 bg-no-repeat }
+
+.enabled { opacity: 1.0; }
+.disabled { opacity: 0.25; }
+
+.btn-increment { @apply bg-teal-700 hover:bg-teal-200 border-l border-gray-300 rounded-r-lg p-2 h-9 focus:outline-none }
+.btn-decrement {@apply bg-blue-400 hover:bg-sky-200 p-2 h-9 focus:outline-none }
+.btn-remove {@apply bg-red-400 rounded-l-lg hover:bg-red-200 p-2 h-9 focus:outline-none }
+
+.form-select {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAQCAYAAAAMJL+VAAAABGdBTUEAALGPC/xhBQAAAQtJREFUOBG1lEEOgjAQRalbGj2OG9caOACn4ALGtfEuHACiazceR1PWOH/CNA3aMiTaBDpt/7zPdBKy7M/DCL9pGkvxxVp7KsvyJftL5rZt1865M+Ucq6pyyF3hNcI7Cuu+728QYn/JQA5yKaempxuZmQngOwEaYx55nu+1lQh8GIatMGi+01NwBcEmhxBqK4nAPZJ78K0KKFAJmR3oPp8+Iwgob0Oa6+TLoeCvRx+mTUYf/FVBGTPRwDkfLxnaSrRwcH0FWhNOmrkWYbE2XEicqgSa1J0LQ+aPCuQgZiLnwewbGuz5MGoAhcIkCQcjaTBjMgtXGURMVHC1wcQEy0J+Zlj8bKAnY1/UzDe2dbAVqfXn6wAAAABJRU5ErkJggg==');
+    background-size: 0.7rem;
+    background-position: right 0.7rem center;
+}

@@ -1,0 +1,94 @@
+<!-- SaisieManuelleComponent -->
+<div #wrapper class="wrapper">
+    <div class="flex flex-col px-3 py-4 md:m-auto md:w-3/5 lg:w-2/5 justify-center">
+        <!-- Barre de navigation. -->
+        <app-navigation></app-navigation>
+
+        <!-- En cas d'erreur (voir si on peut en créé un composant à l'avenir). -->
+        <div *ngIf="!isInputValid" class="bg-gray-50 flex items-center shadow rounded-sm px-2 py-2 mb-6 font-athiti font-bold uppercase">
+            <p class="text-sm text-red-500 py-0">⚠️ Erreur dans la saisie des données.</p>
+        </div>
+
+        <!-- Lors du chargement des données. -->
+        <div *ngIf="isLoading" class="bg-gray-50 flex items-center shadow rounded-sm px-2 py-2 mb-6 font-athiti font-bold uppercase">
+            <img src="assets/svg/loading.svg" alt="Loading Icon" class="icon-lg">
+            <p class="text-sm pl-2" [ngClass]="error === true ? 'text-red-700' : 'text-purple-700'">
+                {{ response || "Envoi des données vers Influx veuillez patienter..." }}
+            </p>
+        </div>
+
+        <!-- Autocomplétion. -->
+        <div class="grid grid-cols-4 gap-4">
+            <div class="col-span-4">
+                <small class="flex items-center pl-1 text-gray-600">Tag du Capteur :</small>
+
+                <!-- Le nom du capteur donné par autocomplétion (grâce au plugin material). -->
+                <div matAutocompleteOrigin #origin="matAutocompleteOrigin">
+                    <input [value]="tag" type="text" class="w-full" title="La saisie sera assistée par autocomplétion." placeholder="Saisissez tout d'abord le tag du capteur." 
+                    matInput [matAutocomplete]="auto" [matAutocompleteConnectedTo]="origin" (keyup)="autocomplete($event)">
+                </div>
+                
+                <!-- Conteneur pour l'autocompletion. -->
+                <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onDeviceSelect($event.option.value, $event.option.viewValue)" class="col-span-4 mb-4">
+                    <mat-option *ngFor="let option of capteurs" [value]="option.id">{{ option.tag }}</mat-option>
+                </mat-autocomplete>
+            </div>
+        </div>
+
+        <div>
+            <!-- Informations sur le capteur sélectionné -->
+            <div *ngIf="selectedCapteur" class="grid grid-cols-4 gap-2 my-6">
+                <app-title-bar class="col-span-4" [title]="'Informations sur le Capteur'"></app-title-bar>
+
+                <div class="col-span-2">
+                    <small class="flex items-center pl-1 text-gray-600">Groupe :</small>
+                    <input type="text" [value]="selectedCapteur.deviceGroup" class="w-full bg-sky-50" [placeholder]="selectedCapteur.deviceGroup ? '' : 'Inconnu'" readonly>
+                </div>
+                
+                <div class="col-span-2">
+                    <small class="flex items-center pl-1 text-gray-600">Nom dans la GTC :</small>
+                    <input type="text" [value]="selectedCapteur.nameGtc" class="w-full bg-sky-50" [placeholder]="selectedCapteur.nameGtc ? '' : 'Inconnu'" readonly>
+                </div>
+            
+                <div class="col-span-2">
+                    <small class="flex items-center pl-1 text-gray-600">Unité :</small>
+                    <input type="text" [value]="selectedCapteur.unit" class="w-full bg-slate-200" [placeholder]="selectedCapteur.unit ? '' : 'Inconnu'" readonly>
+                </div>
+
+                <div class="col-span-2">
+                    <small class="flex items-center pl-1 text-gray-600">Seuil (Valeur) :</small>
+                    <input type="number" step="0.1" [value]="selectedCapteur.threshold" class="bg-sky-50" [placeholder]="selectedCapteur.threshold ? '' : 'Inconnu'" readonly>
+                </div>
+                
+                <div class="col-span-4">
+                    <small class="flex items-center pl-1 text-gray-600">Commentaire :</small>
+                    <input type="text" [value]="selectedCapteur.comment" class="bg-sky-50" [placeholder]="selectedCapteur.comment ? '' : 'Inconnu'" readonly>
+                </div>
+            </div>
+
+            <!-- Choix de la granularité (le formulaire affiché bascule en fonction). -->
+            <div class="grid grid-cols-4 gap-2 my-6">
+                <div class="col-span-4">
+                    <small class="flex items-center pl-1 text-gray-600">Puis sélectionnez la granularité pour la saisie :</small>
+                    
+                    <!-- Pas de sélection tant que le capteur n'a pas été entré. -->
+                    <select [(ngModel)]="selectedGranularity" title="La saisie des valeurs dépend de la granularité." class="form-select" (change)="onGranulariteChange($event)" [disabled]="!selectedCapteur">
+                        <option value="" disabled>Granularité</option>
+                        <option *ngFor="let gr of granularity" [value]="gr" [selected]="selectedGranularity === gr">{{ gr }}</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Pour la saisie au mois. -->
+            <app-form-mois *ngIf="selectedGranularity.toLowerCase() === 'mois'" [capteur]="selectedCapteur"></app-form-mois>
+
+            <!-- Pour la saisie au jour. -->
+            <app-form-jour *ngIf="selectedGranularity.toLowerCase() === 'jour'" [capteur]="selectedCapteur"></app-form-jour>
+
+            <!-- Pour la saisie à l'heure. -->
+            <app-form-heure *ngIf="selectedGranularity.toLowerCase() === 'heure'" [capteur]="selectedCapteur"></app-form-heure>
+
+            <div class="my-14"></div>
+        </div>
+    </div>
+</div>

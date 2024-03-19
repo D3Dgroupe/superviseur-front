@@ -1,0 +1,29 @@
+<div class="grid grid-cols-1 h-3/4 md:h-2/3">
+    <div class="logo-container font-athiti after:text-sm md:after:text-lg">
+        <img src="assets/svg/logo.svg" alt="Palombi">
+    </div>
+
+    <div *ngIf="active == 'Capteurs AKSM' || active == 'Ajouter un Capteur'" class="bg-gray-50 flex items-center justify-between shadow rounded-sm px-2 py-2 mb-6 font-athiti font-bold text-blue-400 uppercase">
+        <a class="icon icon-home rounded-md mr-3" [routerLink]="['/']" title="Accueil"></a>
+        <a class="icon icon-input rounded-md mr-3" [routerLink]="['/add-points']" title="Saisie Manuelle"></a>
+        <a class="icon icon-pending rounded-md mr-3" [routerLink]="['/imports']" title="Importer"></a>
+        <a class="icon icon-add rounded-md mr-3" [routerLink]="['/add-device']" title="Ajouter un Capteur"></a>
+        <h5 class="flex-grow text-right text-sm pr-1">{{ active }}</h5>
+    </div>
+
+    <div *ngIf="active == 'Importer'" class="bg-gray-50 flex items-center justify-between shadow rounded-sm px-2 py-2 mb-6 font-athiti font-bold text-blue-400 uppercase">
+        <a class="icon icon-home rounded-md mr-3" [routerLink]="['/']" title="Accueil"></a>
+        <a class="icon icon-input rounded-md mr-3" [routerLink]="['/add-points']" title="Saisie Manuelle"></a>
+        <a class="icon icon-device rounded-md mr-3" [routerLink]="['/capteurs']" title="Gestion des Capteurs"></a>
+        <h5 class="flex-grow text-right text-sm pr-1">{{ active }}</h5>
+    </div>
+
+    <div *ngIf="active == 'Saisie Manuelle' || active == 'Supression'" class="bg-gray-50 flex items-center justify-between shadow rounded-sm px-2 py-2 mb-6 font-athiti font-bold text-blue-400 uppercase">
+        <a class="icon icon-home rounded-md mr-3" [routerLink]="['/']" title="Accueil"></a>
+        <a class="icon icon-pending rounded-md mr-3" [routerLink]="['/imports']" title="GImporter"></a>
+        <a class="icon icon-device rounded-md mr-3" [routerLink]="['/capteurs']" title="Gestion des Capteurs"></a>
+        <a class="icon icon-add rounded-md mr-3" [routerLink]="['/add-points']" title="Ajouter des Points"></a>
+        <a class="icon icon-suppress rounded-md mr-3" [routerLink]="['/delete-points']" title="Supprimer des Points"></a>
+        <h5 class="flex-grow text-right text-sm pr-1">{{ active }}</h5>
+    </div>
+</div>

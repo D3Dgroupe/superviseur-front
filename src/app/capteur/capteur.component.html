@@ -1,0 +1,73 @@
+<!-- CapteurComponent -->
+<div class="wrapper">
+    <div class="grid grid-cols-4 gap-2 bg-gray-50 shadow rounded-sm px-2 py-2" [ngClass]="{'opacity-40 transition-all ease-out duration-700': deleting}">
+        <div class="col-span-2">
+            <small class="flex items-center pl-1 text-gray-600">Tag :</small>
+            <input type="text" [(ngModel)]="capteur.tag" placeholder="Exemple : H01" class="w-full bg-sky-50" (keyup)="modified = true">
+        </div>
+
+        <div class="col-span-2">
+            <small class="flex items-center pl-1 text-gray-600">Groupe :</small>
+            <input type="text" [(ngModel)]="capteur.deviceGroup" placeholder="Groupe d'Appartenance" class="w-full bg-sky-50" (keyup)="modified = true">
+        </div>
+
+        <div class="col-span-4">
+            <small class="flex items-center pl-1 text-gray-600">Nom dans la GTC :</small>
+            <input type="text" [(ngModel)]="capteur.nameGtc" placeholder="Nom dans la GTC." class="w-full bg-sky-50" (keyup)="modified = true">
+        </div>
+
+        <div class="col-span-4">
+            <small class="flex items-center pl-1 text-gray-600">Nom Affiché :</small>
+            <input type="text" [(ngModel)]="capteur.nameDisplayed" placeholder="Nom à faire apparaître dans le superviseur." class="w-full bg-sky-50" (keyup)="modified = true">
+        </div>
+
+        <div class="col-span-2">
+            <small class="flex items-center pl-1 text-gray-600">Unité :</small>
+            <input type="text" [(ngModel)]="capteur.unit" placeholder="Unité de Mesure" class="w-full bg-sky-50" (keyup)="modified = true">
+        </div>
+        
+        <div class="col-span-2">
+            <small class="flex items-center pl-1 text-gray-600">Fréquence (Minutes) :</small>
+            <input type="number" [(ngModel)]="capteur.rate" placeholder="Fréquence" class="w-full bg-sky-50" (keyup)="modified = true">
+        </div>
+
+        <div class="col-span-2">
+            <small class="flex items-center pl-1 text-gray-600">Digital ou Analogue :</small>
+            <select [(ngModel)]="capteur.digital" class="form-select rounded-md w-full bg-sky-50">
+                <option value="1">Digital</option>
+                <option value="0">Analogue</option>
+            </select>
+        </div>
+
+        <div class="col-span-2">
+            <small class="flex items-center pl-1 text-gray-600">Seuil (Valeur) :</small>
+            <input type="number" [(ngModel)]="capteur.threshold" placeholder="Pour le seuil d'alerte." class="w-full bg-sky-50" autocomplete="off">
+        </div>
+        
+        <div class="col-span-2">
+            <small class="flex items-center pl-1 text-gray-600">Enregistré :</small>
+            <input type="text" value="{{ capteur.created | date : 'dd MMMM yyyy, à HH:mm.' | titlecase }}" placeholder="Date Enregistrement" class="w-full bg-gray-100" readonly>
+        </div>
+        
+        <div class="col-span-2">
+            <small class="flex items-center pl-1 text-gray-600">Commentaire :</small>
+            <input type="text" [(ngModel)]="capteur.comment" placeholder="Commentaire" class="bg-sky-50" (keyup)="modified = true">
+        </div>
+
+        <!-- Dummy -->
+        <div class="col-span-4"></div>
+
+        <div class="col-span-4 flex">
+            <button type="submit" class="w-full flex items-center justify-center mr-[1px] rounded-l-md bg-blue-500 disabled:bg-slate-400" [disabled]="!modified" (click)="save()">Sauvegarder</button>
+
+            <!-- Supprimer le capteur. -->
+            <button type="button" id="increment-button-year" data-input-counter-increment="quantity-input" class="btn-remove rounded-r-lg" (click)="onRemoveCapteur()" [disabled]="deleting">
+                <svg class="w-4 h-4 text-gray-900 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <div class="my-16"></div>
+</div>

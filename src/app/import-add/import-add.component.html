@@ -1,0 +1,34 @@
+<div class="bg-gray-50 shadow rounded-sm px-2 py-2 font-athiti font-bold text-blue-400 uppercase">
+    <form (ngSubmit)="f.form.valid && onUpload()" #f="ngForm" class="grid grid-cols-6 gap-2 lg:items-end">
+        <div class="col-span-6 lg:col-span-3">
+            <small class="flex items-center pl-1 text-gray-600">Source :</small>
+            <label for="file_input">Sélectionner</label>
+            <input type="file" #fileInput (change)="onFileChange($event)" name="source" accept=".csv" id="file_input">
+        </div>
+
+        <div class="col-span-3 lg:col-span-1">
+            <small class="flex items-center pl-1 text-gray-600">Séparateur :</small>
+            <input type="text" [(ngModel)]="separator" name="import-separator" placeholder="Séparateur" autocomplete="off" maxlength="1" class="field">
+        </div>
+
+        <div class="col-span-3 lg:col-span-2">
+            <small class="flex items-center pl-1 text-gray-600">Pool :</small>
+            <input type="number" [(ngModel)]="pool" name="import-pool" placeholder="Pool" autocomplete="off" max="20000" class="field">
+        </div>
+
+        <div class="col-span-4 lg:col-span-4">
+            <input type="text" [(ngModel)]="comment" name="import-comment" placeholder="Commentaire (Optionnel)" autocomplete="off" maxlength="255" class="field">
+        </div>
+
+        <div class="col-span-2 lg:col-span-2">
+            <button type="submit" [disabled]="isLoading">Importer</button>
+        </div>
+    </form>
+</div>
+
+<div *ngIf="isLoading" class="bg-gray-50 flex items-center shadow rounded-sm px-2 py-2 mt-3 font-athiti font-bold uppercase">
+    <img src="assets/svg/loading.svg" alt="Loading Icon" class="icon-lg">
+    <p class="text-sm pl-2" [ngClass]="error === true ? 'text-red-700' : 'text-purple-700'">
+        {{ response || "Importation en cours veuillez patienter... Ceci peut prendre quelques minutes..." }}
+    </p>
+</div>

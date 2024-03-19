@@ -1,0 +1,17 @@
+<!-- CapteurListeComponent -->
+<div class="wrapper">
+    <div class="flex flex-col px-3 py-4 md:m-auto md:w-3/5 justify-center">
+        <!-- Barre de navigation. -->
+        <app-navigation></app-navigation>
+
+        <!-- Une barre de titre classique comme on en trouve partout ailleurs. -->
+        <app-title-bar [title]="capteurs ? 'Liste des Capteurs' : 'Aucun capteur n\'a été répertorié.'"></app-title-bar>
+        
+        <!-- Liste des capteurs. -->
+        <div class="flex-grow grid grid-cols-1 gap-x-4 gap-y-6" *ngIf="ajout == false">
+            <app-capteur *ngFor="let capteur of capteurs" [capteur]="capteur" (removeCapteur)="onRemoveCapteur($event)"></app-capteur>
+        </div>
+
+        <div class="mt-16"></div>
+    </div>
+</div>

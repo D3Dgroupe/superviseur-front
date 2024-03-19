@@ -1,0 +1,40 @@
+<div class="grid grid-cols-6 gap-2 bg-gray-50 shadow rounded-sm px-2 py-2">
+    <div class="col-span-4">
+        <small class="flex items-center pl-1 text-gray-600">Upload :</small>
+        <input type="text" value="{{ import.date_imported | date : 'dd MMMM yyyy, à HH:mm.' | titlecase }}" title="Date" placeholder="Date Import" readonly>
+    </div>
+
+    <div class="col-span-2">
+        <small class="flex items-center pl-1 text-gray-600">Statut :</small>
+        <input type="text" value="{{ import.status }}" title="Statut" placeholder="Statut" readonly>
+    </div>
+
+    <div class="col-span-6">
+        <small class="flex items-center pl-1 text-gray-600">Fichier :</small>
+        <input type="text" value="{{ import.file_name | uppercase }}" title="Fichier" placeholder="Fichier" readonly>
+    </div>
+
+    <div class="col-span-3">
+        <small class="flex items-center pl-1 text-gray-600">Début :</small>
+        <input type="text" value="{{ import.reading_start | date : 'dd/MM/yyyy HH:mm' | titlecase }}" title="Début des mesures." placeholder="Début Mesures" readonly>
+    </div>
+    
+    <div class="col-span-3">
+        <small class="flex items-center pl-1 text-gray-600">Fin :</small>
+        <input type="text" value="{{ import.reading_end | date : 'dd/MM/yyyy HH:mm' | titlecase }}" title="Fin des mesures." placeholder="Fin Mesures" readonly>
+    </div>
+    
+    <div class="col-span-2">
+        <small class="flex items-center pl-1 text-gray-600">Manquant :</small>
+        <input type="text" value="{{ import.nb_missing }}" title="Total des valeurs manquantes durant l'importation." placeholder="Missing" [ngStyle]="{ color: 'rgb(' + (import.nb_missing * 10) + ', 0, 0)' }" readonly>
+    </div>
+    
+    <div class="col-span-4">
+        <small class="flex items-center pl-1 text-gray-600">Commentaire :</small>
+        <input type="text" value="{{ import.comment }}" title="Commentaire" placeholder="Commentaire">
+    </div>
+
+    <div class="col-span-6">
+        <button type="submit" (click)="commentaire()" class="w-full">Sauvegarder</button>
+    </div>
+</div>

@@ -1,0 +1,17 @@
+.icon-home { background: transparent url('/assets/icons/32/home.png'); background-size: cover; }
+.icon-pending { background: transparent url('/assets/icons/32/pending.png'); background-size: cover; }
+.icon-add { background: transparent url('/assets/icons/64/add.png'); background-size: cover; }
+.icon-input { background: transparent url('/assets/icons/64/input.png'); background-size: cover; }
+.icon-suppress { background: transparent url('/assets/icons/64/minus.png'); background-size: cover; }
+.icon-device { background: transparent url('/assets/icons/64/device.png'); background-size: cover; }
+
+.logo-container { position: relative; }
+
+.logo-container::after {
+    content: "Superviseur Énergétique";
+    display: block;
+    position: absolute;
+    color: #333;
+    top: 69%;
+    left: 28%;
+}

@@ -1,0 +1,7 @@
+button { @apply font-athiti decoration-amber-50 text-white transition-all ease-out duration-300 outline-none; }
+input { @apply w-full bg-indigo-50 border outline-none border-sky-100 focus:ring-indigo-300 focus:bg-slate-200 focus:placeholder-sky-800 font-athiti p-1 }
+
+.btn-remove {@apply bg-red-400 rounded-r-lg hover:bg-red-200 p-2 h-9 focus:outline-none }
+
+.enabled { opacity: 1.0; }
+.disabled { opacity: 0.15; }

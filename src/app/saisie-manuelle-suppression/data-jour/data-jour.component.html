@@ -1,0 +1,35 @@
+<div class="mt-6">
+    <div *ngFor="let bloc of blocs; let i = index" class="grid justify-items-stretch grid-cols-4 gap-2 mt-2">
+        <div class="col-span-4 flex">
+            <input type="date" placeholder="JJ/MM/AAAA" class="rounded-l-md" [(ngModel)]="bloc.date" required>
+
+            <!-- Supprimer la ligne en cours. -->
+            <button type="button" id="increment-button-year" data-input-counter-increment="quantity-input" class="btn-remove" (click)="supprimer(i)" [disabled]="i == 0" [ngClass]="i == 0 ? 'disabled' : 'enabled'">
+                <svg class="w-4 h-4 text-gray-900 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <!-- Ajout de données. -->
+    <div class="grid grid-cols-6 gap-0 mt-6">
+        <small class="col-span-6 flex items-center pl-1 text-gray-600">Ce bouton permet d'ajouter d'autres jours.</small>
+        <button class="col-span-6 py-1 rounded-md text-white bg-blue-800 w-full" type="button" (click)="onAjouter(blocs.length - 1)">Plus de Jours</button>
+    </div>
+
+    <!-- Fourni des indications et statuts lors de l'envoi des données. -->
+    <div class="grid grid-cols-2 gap-0 my-6">
+        <button class="col-span-2 px-2 flex items-center bg-gray-200 rounded-md h-[36px]">
+            <img *ngIf="isLoading" src="assets/svg/loading.svg" alt="Loading Icon" class="h-[36px]">
+            <span class="text-blue-700">{{ message }}</span>
+        </button>
+    </div>
+
+    <!-- Confirmation et valider la suppression des données (ce bouton n'est pas affiché tant que le capteur n'est pas sélectionné et que le mode n'est pas valide). -->
+    <div class="grid grid-cols-6 gap-0 mt-6" [class]="!blocs.length || !blocs[0].date ? 'hidden' : ''">
+        <small class="col-span-6 flex items-center pl-1 text-gray-600">Vous devez cliquer sur confirmer avant de purger.</small>
+        <button class="col-span-2 bg-gray-200 text-black py-1 rounded-l-md disabled:bg-slate-400" title="Vous pourrez continuer ensuite de saisir des données." (click)="onConfirm()">Confirmer</button>
+        <button class="col-span-4 bg-red-600 text-white py-1 rounded-r-md disabled:bg-slate-400" title="Vous pourrez continuer ensuite de saisir des données." (click)="onSubmit()" [disabled]="!confirm">Purger</button>
+    </div>
+</div>

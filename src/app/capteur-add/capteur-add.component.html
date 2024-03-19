@@ -1,0 +1,76 @@
+<!-- CapteurAddComponent -->
+<div class="wrapper">
+    <div class="flex flex-col px-3 py-4 md:m-auto md:w-3/5 justify-center">
+        <!-- Barre de navigation. -->
+        <app-navigation></app-navigation>
+
+        <!-- Fourni des indications et statuts lors de l'envoi des données. -->
+        <div *ngIf="isLoading" class="grid grid-cols-2 gap-0 mb-6">
+            <button class="col-span-2 px-2 flex items-center bg-gray-200 rounded-md h-[36px]">
+                <img *ngIf="!error && isLoading" src="assets/svg/loading.svg" alt="Loading Icon" class="h-[36px]">
+                <span class="text-blue-700">{{ message }}</span>
+            </button>
+        </div>
+        
+        <form class="grid grid-cols-4 gap-2 bg-gray-50 shadow rounded-sm px-2 py-2" form name="form" (ngSubmit)="f.form.valid && onAjouter()" #f="ngForm">
+            <div class="col-span-4">
+                <small class="flex items-center pl-1 text-gray-600">Tag :</small>
+                <input type="text" [(ngModel)]="model.tag" name="tag" placeholder="Doit être unique (Exemple : H01)." class="w-full bg-sky-50" autocomplete="off">
+            </div>
+
+            <div class="col-span-4">
+                <small class="flex items-center pl-1 text-gray-600">Groupe :</small>
+                <input type="text" [(ngModel)]="model.deviceGroup" name="deviceGroup" placeholder="Le groupe d'appartenance à faire apparaître." class="w-full bg-sky-50" autocomplete="off">
+            </div>
+            
+            <div class="col-span-4">
+                <small class="flex items-center pl-1 text-gray-600">Nom dans la GTC :</small>
+                <input type="text" [(ngModel)]="model.nameGtc" name="nameGtc" placeholder="Le nom par défaut dans la GTC." class="w-full bg-sky-50" autocomplete="off">
+            </div>
+        
+            <div class="col-span-4">
+                <small class="flex items-center pl-1 text-gray-600">Nom Affiché :</small>
+                <input type="text" [(ngModel)]="model.nameDisplayed" name="nameDisplayed" placeholder="Nom à faire apparaître dans le superviseur." class="w-full bg-sky-50" autocomplete="off">
+            </div>
+        
+            <div class="col-span-2">
+                <small class="flex items-center pl-1 text-gray-600">Unité :</small>
+                <input type="text" [(ngModel)]="model.unit" name="unit" placeholder="Unité de Mesure" class="w-full bg-sky-50" autocomplete="off">
+            </div>
+            
+            <div class="col-span-2">
+                <small class="flex items-center pl-1 text-gray-600">Fréquence (Minutes) :</small>
+                <input type="number" [(ngModel)]="model.rate" name="rate" placeholder="Fréquence" class="w-full bg-sky-50" autocomplete="off">
+            </div>
+
+            <div class="col-span-2">
+                <small class="flex items-center pl-1 text-gray-600">Digital ou Analogue :</small>
+                <select [(ngModel)]="model.digital" class="form-select rounded-md w-full bg-sky-50" name="digital">
+                    <option value="1">Digital</option>
+                    <option value="0">Analogue</option>
+                </select>
+            </div>
+
+            <div class="col-span-2">
+                <small class="flex items-center pl-1 text-gray-600">Seuil (Valeur) :</small>
+                <input type="number" [(ngModel)]="model.threshold" name="threshold" placeholder="Pour le seuil d'alerte." class="w-full bg-sky-50" autocomplete="off">
+            </div>
+            
+            <div class="col-span-4">
+                <small class="flex items-center pl-1 text-gray-600">Commentaire :</small>
+                <input type="text" [(ngModel)]="model.comment" name="comment" placeholder="Pas plus de 255 caractères." class="bg-sky-50" autocomplete="off">
+            </div>
+        
+            <!-- Dummy -->
+            <div class="col-span-4"></div>
+        
+            <button type="submit" class="col-span-2 flex items-center justify-center w-full rounded-md bg-blue-500 uppercase text-white p-2">Ajouter</button>
+
+            <button type="button" class="col-span-2 flex items-center justify-center w-full rounded-md bg-slate-700 uppercase text-white p-2" (click)="onNavigate('../capteurs')">Revenir</button>
+            
+        </form>
+
+        <div class="my-16"></div>
+    </div>
+</div>
+

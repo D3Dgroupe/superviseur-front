@@ -1,0 +1,99 @@
+<div class="mt-6">
+    <!-- Choix des options pour la granularité qui concerne le mois. -->
+    <div class="grid grid-cols-4 gap-2 my-6">
+        <div class="col-span-4">
+            <small class="flex items-center pl-1 text-gray-600">Déterminez les options pour la saisie au mois :</small>
+            
+            <!-- Pas de sélection d'options tant que la granularité n'a pas été choisie. -->
+            <select [(ngModel)]="selectedOption" class="form-select rounded-md">
+                <option *ngFor="let opt of options; let i = index" [ngValue]="i">{{ opt }}</option>
+            </select>
+        </div>
+    </div>
+    
+    <div *ngFor="let bloc of blocs; let i = index" class="grid justify-items-stretch grid-cols-7 gap-2 mt-2">
+        <!-- Année et bouton de décrémentation et d'incrémentation. -->
+        <div class="col-span-5 flex">
+            
+            <!-- Supprimer la ligne en cours. -->
+            <button type="button" id="increment-button-year" data-input-counter-increment="quantity-input" class="btn-remove" (click)="removeValue(i)" [disabled]="i == 0" [ngClass]="i == 0 ? 'disabled' : 'enabled'">
+                <svg class="w-4 h-4 text-gray-900 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+
+            <select [(ngModel)]="bloc.month" class="form-select">
+                <option value="" disabled>Mois</option>
+                <option *ngFor="let mois of months; let i = index" [value]="i + 1" [selected]="bloc.month === i">{{ mois }}</option>
+            </select>
+
+            <input [(ngModel)]="bloc.year" type="number" value="2024" min="1900" max="2099" step="1" class="ml-[1px] py-1 pl-2" required>
+            
+            <!-- Décrémenter l'année. -->
+            <button type="button" id="decrement-button-year" data-input-counter-decrement="quantity-input" (click)="bloc.year = (bloc.year || 0) - 1" class="btn-decrement">
+                <svg class="w-2 h-2 text-gray-900 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 2">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h16"/>
+                </svg>
+            </button>
+
+            <!-- Incrémenter l'année. -->
+            <button type="button" id="increment-button-year" data-input-counter-increment="quantity-input" (click)="bloc.year = (bloc.year || 0) + 1" class="btn-increment">
+                <svg class="w-2 h-2 text-gray-900 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16"/>
+                </svg>
+            </button>
+        </div>
+        
+        <!-- Valeur et bouton de décrémentation et d'incrémentation. -->
+        <div class="col-span-2 flex">
+            <input class="text-center rounded-l-md" type="number" placeholder="Valeur" [(ngModel)]="bloc.value" required>
+            
+            <!-- Décrémenter la valeur. -->
+            <button type="button" id="decrement-button-value" data-input-counter-decrement="quantity-input" (click)="bloc.value = (bloc.value || 0) - 1" class="btn-decrement">
+                <svg class="w-2 h-2 text-gray-900 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 2">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h16"/>
+                </svg>
+            </button>
+
+            <!-- Incrémenter la valeur. -->
+            <button type="button" id="increment-button-value" data-input-counter-increment="quantity-input" (click)="bloc.value = (bloc.value || 0) + 1" class="btn-increment">
+                <svg class="w-2 h-2 text-gray-900 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16"/>
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <!-- Ajout de données. -->
+    <div class="grid grid-cols-6 gap-0 mt-6">
+        <small class="col-span-6 flex items-center pl-1 text-gray-600">Ce bouton permet d'ajouter plus de points.</small>
+        <button class="col-span-6 py-1 rounded-md text-white bg-blue-800 w-full" type="button" (click)="addValue()">Ajouter</button>
+    </div>
+
+    <!-- Le choix de l'écrasement ou de la purge. -->
+    <div class="grid grid-cols-4 gap-2 my-6">
+        <div class="col-span-4">
+            <small class="flex items-center pl-1 text-gray-600">Conservation des données pour la période :</small>
+            
+            <select [(ngModel)]="inputMode" class="form-select rounded-md">
+                <option value="1">Purger les mesures précédentes.</option>
+                <option value="2">Ne rien faire.</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- Fourni des indications et statuts lors de l'envoi des données. -->
+    <div class="grid grid-cols-2 gap-0 mb-6">
+        <button class="col-span-2 px-2 flex items-center bg-gray-200 rounded-md h-[36px]">
+            <img *ngIf="isLoading" src="assets/svg/loading.svg" alt="Loading Icon" class="h-[36px]">
+            <span class="text-blue-700">{{ message }}</span>
+        </button>
+    </div>
+
+    <!-- Confirmation et validation. -->
+    <div class="grid grid-cols-6 gap-0">
+        <small class="col-span-6 flex items-center pl-1 text-gray-600">Vous devez cliquer sur confirmer avant de valider.</small>
+        <button class="col-span-2 bg-gray-200 text-black py-1 rounded-l-md disabled:bg-slate-400" (click)="onConfirm()">Confirmer</button>
+        <button class="col-span-4 bg-sky-600 py-1 rounded-r-md disabled:bg-slate-400" title="Vous pourrez continuer ensuite de saisir des données." (click)="onSubmitMonth()" [disabled]="!confirm">Envoyer</button>
+    </div>
+</div>

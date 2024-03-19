@@ -1,0 +1,104 @@
+<!-- SaisieManuelleComponent -->
+<div #wrapper class="wrapper">
+    <div class="flex flex-col px-3 py-4 md:m-auto md:w-3/5 lg:w-2/5 justify-center">
+        <!-- Barre de navigation. -->
+        <app-navigation></app-navigation>
+
+        <!-- Autocomplétion. -->
+        <div class="grid grid-cols-4 gap-4">
+            <div class="col-span-4">
+                <small class="flex items-center pl-1 text-gray-600">Tag du Capteur :</small>
+
+                <!-- Le nom du capteur donné par autocomplétion (grâce au plugin material). -->
+                <div matAutocompleteOrigin #origin="matAutocompleteOrigin">
+                    <input [value]="tag" type="text" class="w-full" title="La saisie sera assistée par autocomplétion." placeholder="Saisissez tout d'abord le tag du capteur." 
+                    matInput [matAutocomplete]="auto" [matAutocompleteConnectedTo]="origin" (keyup)="autocomplete($event)">
+                </div>
+                
+                <!-- Conteneur pour l'autocompletion. -->
+                <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onDeviceSelect($event.option.value, $event.option.viewValue)" class="col-span-4 mb-4">
+                    <mat-option *ngFor="let option of capteurs" [value]="option.id">{{ option.tag }}</mat-option>
+                </mat-autocomplete>
+            </div>
+        </div>
+
+        <div>
+            <!-- Informations sur le capteur sélectionné -->
+            <div *ngIf="selectedCapteur" class="grid grid-cols-4 gap-2 my-6">
+                <app-title-bar class="col-span-4" [title]="'Informations sur le Capteur'"></app-title-bar>
+
+                <div class="col-span-2">
+                    <small class="flex items-center pl-1 text-gray-600">Lieu :</small>
+                    <input type="text" [value]="selectedCapteur.deviceGroup" class="w-full bg-sky-50" [placeholder]="selectedCapteur.deviceGroup ? '' : 'N/A'" readonly>
+                </div>
+                
+                <div class="col-span-2">
+                    <small class="flex items-center pl-1 text-gray-600">Nom :</small>
+                    <input type="text" [value]="selectedCapteur.nameGtc" class="w-full bg-sky-50" [placeholder]="selectedCapteur.nameGtc ? '' : 'N/A'" readonly>
+                </div>
+            
+                <div class="col-span-2">
+                    <small class="flex items-center pl-1 text-gray-600">Unité :</small>
+                    <input type="text" [value]="selectedCapteur.unit" class="w-full bg-slate-200" [placeholder]="selectedCapteur.unit ? '' : 'N/A'" readonly>
+                </div>
+
+                <div class="col-span-2">
+                    <small class="flex items-center pl-1 text-gray-600">Seuil :</small>
+                    <input type="number" step="0.1" [value]="selectedCapteur.threshold" class="bg-sky-50" [placeholder]="selectedCapteur.threshold ? '' : 'N/A'" readonly>
+                </div>
+                
+                <div class="col-span-4">
+                    <small class="flex items-center pl-1 text-gray-600">Commentaire :</small>
+                    <input type="text" [value]="selectedCapteur.comment" class="bg-sky-50" [placeholder]="selectedCapteur.comment ? '' : 'N/A'" readonly>
+                </div>
+            </div>
+
+            <!-- Le choix de l'écrasement ou de la purge. -->
+            <div class="grid grid-cols-4 gap-2 my-6">
+                <div class="col-span-4">
+                    <small class="flex items-center pl-1 text-gray-600">Mode de suppression des données :</small>
+                    
+                    <select [(ngModel)]="inputMode" class="form-select rounded-md" [disabled]="!selectedCapteur">
+                        <option value="1">Purger toutes les mesures du capteur.</option>
+                        <option value="2">Saisir les plages d'horaires.</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Choix de la granularité (masqué si on purge toutes les mesures). -->
+            <div class="grid grid-cols-4 gap-2 my-6" [class]="inputMode == 1 ? 'hidden' : ''">
+                <div class="col-span-4">
+                    <small class="flex items-center pl-1 text-gray-600">Déterminez la granularité pour la saisie :</small>
+                    <select [(ngModel)]="selectedGranularity" title="La saisie des valeurs dépend de la granularité." class="form-select">
+                        <option value="" disabled>Granularité</option>
+                        <option *ngFor="let gr of granularity" [value]="gr" [selected]="selectedGranularity === gr">{{ gr }}</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Pour la saisie au mois. -->
+            <app-data-mois *ngIf="inputMode == 2 && selectedGranularity.toLowerCase() === 'mois'" [capteur]="selectedCapteur"></app-data-mois>
+
+            <!-- Pour la saisie au jour. -->
+            <app-data-jour *ngIf="inputMode == 2 && selectedGranularity.toLowerCase() === 'jour'" [capteur]="selectedCapteur"></app-data-jour>
+
+            <!-- TODO : On devrait passer par un event emitter si possible pour les composants enfants. -->
+            <!-- Fourni des indications et statuts lors de l'envoi des données. -->
+            <div *ngIf="isLoading" class="grid grid-cols-2 gap-0 mb-6" [class]="!selectedCapteur || inputMode == 2 ? 'hidden' : ''">
+                <button class="col-span-2 px-2 flex items-center bg-gray-200 rounded-md h-[36px]">
+                    <img *ngIf="!done" src="assets/svg/loading.svg" alt="Loading Icon" class="h-[36px]">
+                    <span class="text-blue-700">{{ message }}</span>
+                </button>
+            </div>
+
+            <!-- Confirmation et valider la suppression des données (ce bouton n'est pas affiché tant que le capteur n'est pas sélectionné et que le mode n'est pas valide). -->
+            <div class="grid grid-cols-6 gap-0 mt-6" [class]="!selectedCapteur || inputMode == 2 ? 'hidden' : ''">
+                <small class="col-span-6 flex items-center pl-1 text-gray-600">Vous devez cliquer sur confirmer avant de purger.</small>
+                <button class="col-span-2 bg-gray-200 text-black py-1 rounded-l-md disabled:bg-slate-400" (click)="onConfirm()">Confirmer</button>
+                <button class="col-span-4 bg-red-600 text-white py-1 rounded-r-md disabled:bg-slate-400" title="Cette action est irréversible." (click)="onSubmit()" [disabled]="!confirm">Purger</button>
+            </div>
+
+            <div class="my-16"></div>
+        </div>
+    </div>
+</div>
