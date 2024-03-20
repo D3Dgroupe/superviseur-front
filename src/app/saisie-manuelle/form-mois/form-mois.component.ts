@@ -120,9 +120,6 @@ export class FormMoisComponent {
             next: (data) => {
                 this.message = "✅ Ajout des points terminé."
                 this.isLoading = false;
-
-                // Rafraichi la page si tout s'est bien passé.
-                setTimeout(() => { window.location.reload(); }, 2000);
             },
             error: (err) => {
                 this.message = "❌ Erreur du serveur lors de l'ajout."

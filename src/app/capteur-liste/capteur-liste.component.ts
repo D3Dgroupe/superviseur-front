@@ -33,6 +33,7 @@ export class CapteurListeComponent implements OnInit {
         });
     }
 
+    /** Appelée par le composant enfant. */
     onRemoveCapteur(id: number) {
         const indexToRemove = this.capteurs.findIndex(
             (c) => c.id === id

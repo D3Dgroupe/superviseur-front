@@ -69,9 +69,6 @@ export class FormHeureComponent implements OnInit {
             next: (data) => {
                 this.message = "✅ Ajout des points terminé."
                 this.isLoading = false;
-
-                // Rafraichi la page si tout s'est bien passé.
-                setTimeout(() => { window.location.reload(); }, 2000);
             },
             error: (error) => {
                 this.message = "❌ Erreur du serveur lors de l'ajout."
