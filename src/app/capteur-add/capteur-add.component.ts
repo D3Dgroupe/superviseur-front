@@ -23,7 +23,7 @@ export class CapteurAddComponent implements OnInit {
     
     constructor(private service: DataService, private router: Router, private route: ActivatedRoute) {}
 
-    ngOnInit(): void { this.model.digital = 1; }
+    ngOnInit(): void { this.model.digital = 1; this.model.previsionnel = 0;}
 
     onAjouter() {
         this.message = "Ajout d'un capteur en cours..."

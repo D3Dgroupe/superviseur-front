@@ -7,6 +7,7 @@ export class Device {
     deviceGroup!: string;
     location!: string;
     unit!: string;
+    previsionnel!: number;
     digital!: number;
     rate!: number;
     threshold!: number;
