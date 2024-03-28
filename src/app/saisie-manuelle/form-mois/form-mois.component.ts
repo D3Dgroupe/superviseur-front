@@ -106,7 +106,6 @@ export class FormMoisComponent {
 
     // Soumettre les valeurs.
     onSubmitMonth() {
-        this.blocs = [];
         this.message = "Ajout des points en cours veuillez patienter..."
         this.isLoading = true;
 

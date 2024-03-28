@@ -34,7 +34,7 @@ export class DataService {
      * @returns Liste d'imports.
      */
     recupererHistorique(): Observable<Import[]> {
-        return this.http.get<any>(`${this.url}/history`);
+        return this.http.get<any>(`${this.url}/imports`);
     }
 
     /**
@@ -56,7 +56,7 @@ export class DataService {
      * @param commentaire Le commentaire à appliquer.
      */
     modifierCommentaireImport(id: number, fichier: Import) {
-        return this.http.post<Import>(`${this.url}/history/save/${id}`, fichier)
+        return this.http.post<Import>(`${this.url}/imports/save/${id}`, fichier)
     }
 
     /**
