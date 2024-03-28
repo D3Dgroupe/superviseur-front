@@ -17,27 +17,25 @@ export class CapteurAddComponent implements OnInit {
     
     model: any = {};
     
-    error: boolean = false;
     isLoading: boolean = false;
-    message: string = "En attente d'instructions...";
+    added: boolean = false;
+    error: boolean = false;
+    response: string = '';
     
     constructor(private service: DataService, private router: Router, private route: ActivatedRoute) {}
 
     ngOnInit(): void { this.model.digital = 1; }
 
     onAjouter() {
-        this.message = "Ajout d'un capteur en cours..."
-        
-        this.error = false;
         this.isLoading = true;
 
         this.service.ajouterCapteur(this.model).subscribe({
             next: (data) => {
-                this.isLoading = false;
                 this.router.navigate(['../capteurs'], { relativeTo: this.route });
             },
             error: (error) => {
-                this.message = "Une erreur serveur est survenue pendant l'ajout.";
+                this.error = true;
+                this.response = "Une erreur serveur est survenue pendant l'ajout.";
             },
         });
     }

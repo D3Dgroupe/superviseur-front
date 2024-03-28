@@ -5,11 +5,11 @@
         <app-navigation></app-navigation>
 
         <!-- Fourni des indications et statuts lors de l'envoi des données. -->
-        <div *ngIf="isLoading" class="grid grid-cols-2 gap-0 mb-6">
-            <button class="col-span-2 px-2 flex items-center bg-gray-200 rounded-md h-[36px]">
-                <img *ngIf="!error && isLoading" src="assets/svg/loading.svg" alt="Loading Icon" class="h-[36px]">
-                <span class="text-blue-700">{{ message }}</span>
-            </button>
+        <div *ngIf="isLoading" class="bg-gray-50 flex items-center shadow rounded-sm px-2 py-2 mt-3 font-athiti font-bold uppercase">
+            <img src="assets/svg/loading.svg" alt="Loading Icon" class="icon-lg">
+            <p class="text-sm pl-2" [ngClass]="error === true ? 'text-red-700' : 'text-purple-700'">
+                {{ response || "Ajout du capteur en cours..." }}
+            </p>
         </div>
         
         <form class="grid grid-cols-4 gap-2 bg-gray-50 shadow rounded-sm px-2 py-2" form name="form" (ngSubmit)="f.form.valid && onAjouter()" #f="ngForm">
@@ -40,7 +40,7 @@
             
             <div class="col-span-2">
                 <small class="flex items-center pl-1 text-gray-600">Fréquence (Minutes) :</small>
-                <input type="number" [(ngModel)]="model.rate" name="rate" placeholder="Fréquence" class="w-full bg-sky-50" autocomplete="off">
+                <input type="number" [(ngModel)]="model.rate" name="rate" placeholder="Fréquence" class="w-full bg-sky-50" autocomplete="off" min="1">
             </div>
 
             <div class="col-span-2">
