@@ -69,7 +69,7 @@ export class DataJourComponent implements OnInit {
     }
 
     onSubmit() {
-        this.blocs = []
+        //this.blocs = [] Enlevé par Benjamin car sinon retournera toujours un tableau vide ?
         this.message = "Suppression des points en cours veuillez patienter..."
         this.isLoading = true;
         
