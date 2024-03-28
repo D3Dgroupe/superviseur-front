@@ -74,7 +74,7 @@ export class DataMoisComponent implements OnInit {
         saisie.datablocs = this.blocs;
         saisie.capteur = this.capteur;
 
-        this.service.purgerJour(saisie).subscribe({
+        this.service.purgerMois(saisie).subscribe({
             next: (data) => {
                 this.message = "✅ Suppression des points terminé."
                 this.isLoading = false;
