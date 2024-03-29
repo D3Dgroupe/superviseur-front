@@ -24,6 +24,14 @@
                     </a>
                 </li>
                 <li>
+                    <a [routerLink]="['/delete-points']" title="Supprimer des points et des valeurs dans le temps.">
+                        <button class="btn-menu h-16 py-2 justify-between bg-blue-500 hover:bg-blue-700">
+                            <span>Suppression Manuelle</span>
+                            <img src="assets/icons/64/capteur.png" alt="Note" class="icon-md" />
+                        </button>
+                    </a>
+                </li>
+                <li>
                     <a [routerLink]="['/imports']" title="Gérer les imports CSV.">
                         <button class="btn-menu h-16 py-2 justify-between bg-blue-500 hover:bg-blue-700">
                             <span>Gestion des Imports</span>
