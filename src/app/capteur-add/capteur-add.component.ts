@@ -24,7 +24,11 @@ export class CapteurAddComponent implements OnInit {
     
     constructor(private service: DataService, private router: Router, private route: ActivatedRoute) {}
 
-    ngOnInit(): void { this.model.digital = 1; this.model.previsionnel = 0;}
+    ngOnInit(): void {
+        this.model.digital = 1;
+        this.model.previsionnel = 0;
+        this.model.field_value_type = 'Décimal';
+    }
 
     onAjouter() {
         this.isLoading = true;

@@ -22,11 +22,14 @@ export class CapteurComponent implements OnInit {
 
     constructor(private service: DataService, private changes: ChangeDetectorRef) {}
     
-    ngOnInit(): void {}
+    ngOnInit(): void {
+        // Si le type de valeur n'est pas spécifié.
+        if (!this.capteur.field_value_type) this.capteur.field_value_type = 'undefined';
+    }
 
     save(): boolean {
         // Il faudrait au moins spécifier le tag avant de sauvegarder.
-        if (!this.capteur.tag) return false;
+        if (!this.capteur.tag || this.capteur.field_value_type == 'undefined') return false;
         
         // La méthode subscribe est asynchrone on attend que ça se termine avant d'affecter les données au capteur pour le dom (document object model).
         this.service.modifierCapteur(this.capteur).subscribe({

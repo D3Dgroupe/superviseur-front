@@ -7,6 +7,7 @@ export class Device {
     deviceGroup!: string;
     location!: string;
     unit!: string;
+    field_value_type!: string;
     previsionnel!: number;
     digital!: number;
     rate!: number;

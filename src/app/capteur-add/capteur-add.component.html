@@ -37,6 +37,15 @@
                 <small class="flex items-center pl-1 text-gray-600">Unité :</small>
                 <input type="text" [(ngModel)]="model.unit" name="unit" placeholder="Unité de Mesure" class="w-full bg-sky-50" autocomplete="off">
             </div>
+
+            <div class="col-span-2 md:col-span-2">
+                <small class="flex items-center pl-1 text-gray-600">Type :</small>
+                <select [(ngModel)]="model.field_value_type" class="form-select rounded-md w-full bg-sky-50" name="field_value_type">
+                    <option value="Décimal">Décimal</option>
+                    <option value="Entier">Entier</option>
+                    <option value="Booléen">Booléen</option>
+                </select>
+            </div>
             
             <div class="col-span-2">
                 <small class="flex items-center pl-1 text-gray-600">Fréquence (Minutes) :</small>
@@ -44,14 +53,14 @@
             </div>
 
             <div class="col-span-2">
-                <small class="flex items-center pl-1 text-gray-600">Type de donnée :</small>
+                <small class="flex items-center pl-1 text-gray-600">Type de Données :</small>
                 <select [(ngModel)]="model.previsionnel" class="form-select rounded-md w-full bg-sky-50" name="previsionnel">
                     <option value="0">Capteur</option>
-                    <option value="1">Prévisionnel d'un capteur</option>
+                    <option value="1">Prévisionnel d'un Capteur</option>
                 </select>
             </div>
 
-            <div class="col-span-1">
+            <div class="col-span-2 md:col-span-2">
                 <small class="flex items-center pl-1 text-gray-600">Digital ou Analogue :</small>
                 <select [(ngModel)]="model.digital" class="form-select rounded-md w-full bg-sky-50" name="digital">
                     <option value="1">Digital</option>
@@ -59,12 +68,12 @@
                 </select>
             </div>
 
-            <div class="col-span-1">
+            <div class="col-span-2 md:col-span-2">
                 <small class="flex items-center pl-1 text-gray-600">Seuil (Valeur) :</small>
                 <input type="number" [(ngModel)]="model.threshold" name="threshold" placeholder="Pour le seuil d'alerte." class="w-full bg-sky-50" autocomplete="off">
             </div>
             
-            <div class="col-span-4">
+            <div class="col-span-4 md:col-span-2">
                 <small class="flex items-center pl-1 text-gray-600">Commentaire :</small>
                 <input type="text" [(ngModel)]="model.comment" name="comment" placeholder="Pas plus de 255 caractères." class="bg-sky-50" autocomplete="off">
             </div>
