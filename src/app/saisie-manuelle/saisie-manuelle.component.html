@@ -59,8 +59,18 @@
                     <small class="flex items-center pl-1 text-gray-600">Seuil (Valeur) :</small>
                     <input type="number" step="0.1" [value]="selectedCapteur.threshold" class="bg-sky-50" [placeholder]="selectedCapteur.threshold ? '' : 'Inconnu'" readonly>
                 </div>
+
+                <div class="col-span-2">
+                    <small class="flex items-center pl-1 text-gray-600">Type :</small>
+                    <select [value]="selectedCapteur.field_value_type" class="form-select rounded-md w-full bg-sky-50">
+                        <option value="undefined" selected disabled>Non Spécifié</option>
+                        <option value="Décimal">Décimal</option>
+                        <option value="Entier">Entier</option>
+                        <option value="Booléen">Booléen</option>
+                    </select>
+                </div>
                 
-                <div class="col-span-4">
+                <div class="col-span-2">
                     <small class="flex items-center pl-1 text-gray-600">Commentaire :</small>
                     <input type="text" [value]="selectedCapteur.comment" class="bg-sky-50" [placeholder]="selectedCapteur.comment ? '' : 'Inconnu'" readonly>
                 </div>

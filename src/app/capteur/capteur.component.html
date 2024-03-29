@@ -49,8 +49,8 @@
             </select>
         </div>
 
-        <div class="col-span-4">
-            <small class="flex items-center pl-1 text-gray-600">Type de donnée :</small>
+        <div class="col-span-4 md:col-span-2">
+            <small class="flex items-center pl-1 text-gray-600">Type de Données :</small>
             <select [(ngModel)]="capteur.previsionnel" class="form-select rounded-md w-full bg-sky-50" (change)="modified = true">
                 <option value="0">Capteur</option>
                 <option value="1">Prévisionnel d'un Capteur</option>
@@ -62,7 +62,7 @@
             <input type="number" [(ngModel)]="capteur.threshold" placeholder="Pour le seuil d'alerte." class="w-full bg-sky-50" autocomplete="off" (keyup)="modified = true">
         </div>
 
-        <div class="col-span-4">
+        <div class="col-span-4 md:col-span-2">
             <small class="flex items-center pl-1 text-gray-600">Commentaire :</small>
             <input type="text" [(ngModel)]="capteur.comment" placeholder="Commentaire" class="bg-sky-50" (keyup)="modified = true">
         </div>
