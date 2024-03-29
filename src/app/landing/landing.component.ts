@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterModule, RouterOutlet } from '@angular/router';
+import { environment } from '../../environments/environment';
 
 @Component({
     selector: 'app-landing',
@@ -9,4 +10,7 @@ import { RouterModule, RouterOutlet } from '@angular/router';
     styleUrl: './landing.component.scss',
 })
 
-export class LandingComponent {}
+export class LandingComponent {
+    grafanaURLvar: string = environment.grafanaUrl;
+}
+
